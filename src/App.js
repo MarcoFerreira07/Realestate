@@ -1,24 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react'
+import Navbar from './components/Navbar';
+import GlobalStyle from './globalStyles';
+import Hero from './components/Hero';
+import {SliderData} from './data/SliderData'
+import Dropdown from './components/Dropdown';
+import InfoSection from './components/InfoSection';
+import { InfoData } from './data/InfoData';
+import Footer from './components/Footer';
+import {BrowserRouter,Routes,Route,} from "react-router-dom";
+import Home from  './pages'
+import Contact from './pages/Contact'
+import Features from './components/Features'
+
+
 
 function App() {
+  const[isOpen, setIsOpen] = useState(false)
+  
+  const toggle = () =>{
+    setIsOpen(!isOpen)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <>
+   <GlobalStyle/>
+   <Navbar toggle={toggle}/>
+   <Dropdown isOpen={isOpen} toggle={toggle}/>
+   <Routes>
+    <Route path='/contact' component={Contact}/>
+   </Routes>
+
+   <InfoSection {...InfoData}/>
+   <Features/>
+   <Hero slides={SliderData}/>
+   <Footer/>
+   </>
   );
 }
 
